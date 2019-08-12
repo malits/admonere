@@ -1,5 +1,7 @@
 'use strict'
 
+const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+
 // Import dependencies and set up http server
 const
     express = require('express'),
@@ -24,6 +26,10 @@ app.post('/webhook', (req, res) => {
             // Get the message array. Will only ever contain one message
             let webhook_event = entry.messaging[0];
             console.log(webhook_event);
+
+            // Get the sender PSID
+            let sender_psid = webhook_event.ssender.id;
+            console.log('Sender PSID: ' + sender_psid);
         });
 
         // Returns a '200 OK' response to all requests
@@ -62,3 +68,18 @@ app.get('/webhook', (req, res) => {
         }
     }
 });
+
+// Handles message events
+function handleMessage(sender_psid, received_message) {
+
+}
+
+// Handles messaging_postbacks events
+function handlePostback(sender_psid, received_postback) {
+
+}
+
+// Sends response method via the Send API
+function callSendAPI(sender_psid, response) {
+
+}
