@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "fb messenger chat bot for remembering stuff",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "express":"*",
+    "body-parser":"*"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
