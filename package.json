@@ -1,0 +1,13 @@
+{
+  "name": "admonere",
+  "version": "1.0.0",
+  "description": "fb messenger chat bot for remembering stuff",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "malits",
+  "license": "ISC"
+}
