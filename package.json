@@ -4,8 +4,9 @@
   "description": "fb messenger chat bot for remembering stuff",
   "main": "index.js",
   "dependencies": {
-    "express":"*",
-    "body-parser":"*"
+    "body-parser": "*",
+    "express": "*",
+    "request": "^2.88.0"
   },
   "devDependencies": {},
   "scripts": {
