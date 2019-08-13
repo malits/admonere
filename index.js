@@ -90,7 +90,7 @@ function checkStash(received_message) {
             console.log("stashing");
         }
     }
-
+}
 // Handles message events
 function handleMessage(sender_psid, received_message) {
     
