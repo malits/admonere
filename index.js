@@ -88,39 +88,26 @@ function handleMessage(sender_psid, received_message) {
     if (received_message.text) {
         // Create payload for a basic text reply
         response = {
-            'text': `you sent "${received_message.text}", now send me an image`
-        }
-    } else if (received_message.attachments) {
-
-        // Gets the URL of the message attachment
-        let attachment_url = received_message.attachments[0].payload.url;
-        response = {
             "attachment": {
                 "type": "template",
                 "payload": {
-                    "template_type": "generic",
-                    "elements": [{
-                        "title": "Is this is right picture?",
-                        "subtitle": "Tap a button to answer",
-                        "image_url": attachment_url,
-                        "buttons": [
-                            {
-                                "type":"postback",
-                                "title": "Yes!",
-                                "payload": "yes",
-                            },
-                            {
-                                "type": "postback",
-                                "title": "No!",
-                                "payload": "no",
-                            }
-                        ],
-                    }]
+                    "template_type": "button",
+                    "text": "Would you like to stash or view?",
+                    "buttons": [
+                        {
+                            "type": "postback",
+                            "title": "Stash",
+                            "payload": "stash"
+                        },
+                        {
+                            "type": "postback",
+                            "title": "View",
+                            "payload": "view",
+                        }
+                    ]
                 }
             }
         }
-    }
-
     // Send the response
     callSendAPI(sender_psid, response);
 }
