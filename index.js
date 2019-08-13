@@ -88,7 +88,7 @@ function handleMessage(sender_psid, received_message) {
     if (received_message.text) {
         // Create payload for a basic text reply
         response = {
-            'text': "you sent ${received_message.text}, now send me an image"
+            'text': `you sent "${received_message.text}", now send me an image`
         }
     }
 
