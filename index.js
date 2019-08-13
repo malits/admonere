@@ -79,6 +79,18 @@ app.get('/webhook', (req, res) => {
     }
 });
 
+// Checks for immediate STASH request
+function checkStash(received_message) {
+
+    if (received_message.text) {
+
+        toks = received_message.text.split();
+
+        if (toks[0] == 'STASH') {
+            console.log("stashing");
+        }
+    }
+
 // Handles message events
 function handleMessage(sender_psid, received_message) {
     
@@ -122,10 +134,10 @@ function handlePostback(sender_psid, received_postback) {
     let payload = received_postback.payload;
 
     // Set response based on postback payload
-    if (payload === "yes") {
-        response = {"text": "Thanks!"}
-    } else if (payload == "no") {
-        response = {"text": "Oops, try sending another image"}
+    if (payload === "stash") {
+        response = {"text": "Stashing!"}
+    } else if (payload == "view") {
+        response = {"text": "View selected"}
     }
 
     // Send message back
