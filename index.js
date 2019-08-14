@@ -59,7 +59,7 @@ app.post('/webhook', (req, res) => {
         res.sendStatus(404);
     }
 
-});/
+});
 
 // GET request
 app.get('/webhook', (req, res) => {
