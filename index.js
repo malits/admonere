@@ -13,6 +13,15 @@ const
 // sets up server port
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
+// client for postgres
+const { Client } = require('pg');
+
+// set up postgres client
+const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+});
+
 // Creates the endpoint for our webhook
 app.post('/webhook', (req, res) => {
 
@@ -37,6 +46,7 @@ app.post('/webhook', (req, res) => {
             // handler
             if (webhook_event.message) {
                 handleMessage(sender_psid, webhook_event.message);
+                databaseTest();
             } else {
                 handlePostback(sender_psid, webhook_event.postback);
             }
@@ -49,7 +59,7 @@ app.post('/webhook', (req, res) => {
         res.sendStatus(404);
     }
 
-});
+});/
 
 // GET request
 app.get('/webhook', (req, res) => {
@@ -78,6 +88,18 @@ app.get('/webhook', (req, res) => {
         }
     }
 });
+
+// test the database
+function databaseTest() {
+    client.connect();
+
+    client.query('SELECT * FROM reminders;', (err, res) => {
+        if (err) throw err;
+        for (let row of res.rows) {
+            console.log(JSON.stringify(row));
+        }
+        client.end();
+    });
 
 // Checks for immediate STASH request
 function checkStash(received_message) {
