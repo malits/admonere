@@ -100,6 +100,7 @@ function databaseTest() {
         }
         client.end();
     });
+}
 
 // Checks for immediate STASH request
 function checkStash(received_message) {
