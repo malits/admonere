@@ -35,12 +35,10 @@ app.post('/webhook', (req, res) => {
 
             // Get the message array. Will only ever contain one message
             let webhook_event = entry.messaging[0];
-            console.log(webhook_event);
 
             // Get the sender PSID
             let sender_psid = webhook_event.sender.id;
             // maybe use this in database??
-            console.log('Sender PSID: ' + sender_psid);
         
             // Check if the event is message or postback, use appropriate
             // handler
@@ -92,6 +90,8 @@ app.get('/webhook', (req, res) => {
 // test the database
 function databaseTest() {
     client.connect();
+
+    console.log(process.env.DATABASE_URL);
 
     client.query('SELECT * FROM reminders;', (err, res) => {
         // if (err) throw err;
@@ -191,3 +191,4 @@ function callSendAPI(sender_psid, response) {
         }
     });
 }
+            console.log('Sender PSID: ' + sender_psid);
