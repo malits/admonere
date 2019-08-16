@@ -98,7 +98,8 @@ function databaseTest() {
         for (let row of res.rows) {
             console.log(JSON.stringify(row));
         }
-        client.end();
+        let done = true;
+        if (done) client.end();
     });
 }
 
