@@ -94,7 +94,7 @@ function databaseTest() {
     console.log(process.env.DATABASE_URL);
 
     client.query('SELECT * FROM reminders;', (err, res) => {
-        // if (err) throw err;
+        if (err) throw err;
         for (let row of res.rows) {
             console.log(JSON.stringify(row));
         }
@@ -191,4 +191,3 @@ function callSendAPI(sender_psid, response) {
         }
     });
 }
-            console.log('Sender PSID: ' + sender_psid);
