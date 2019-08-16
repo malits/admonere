@@ -7,20 +7,12 @@ const
     express = require('express'),
     bodyParser = require('body-parser'),
     request = require('request'),
+    pg = require('pg'),
     // express http server
     app = express().use(bodyParser.json());
 
 // sets up server port
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
-
-// client for postgres
-const { Client } = require('pg');
-
-// set up postgres client
-const client = new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: true,
-});
 
 // Creates the endpoint for our webhook
 app.post('/webhook', (req, res) => {
@@ -89,17 +81,12 @@ app.get('/webhook', (req, res) => {
 
 // test the database
 function databaseTest() {
-    client.connect();
-
-    console.log(process.env.DATABASE_URL);
-
-    client.query('SELECT * FROM reminders;', (err, res) => {
-        if (err) throw err;
-        for (let row of res.rows) {
-            console.log(JSON.stringify(row));
-        }
-
-        client.end();
+    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+        client.query('SELECT * FROM reminders;', function(err, result) {
+            done();
+            if (err) return console.error(err);
+            console.log(result.rows);
+        });
     });
 }
 
