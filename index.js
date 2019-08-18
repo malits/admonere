@@ -41,8 +41,7 @@ app.post('/webhook', (req, res) => {
             // Check if the event is message or postback, use appropriate
             // handler
             if (webhook_event.message) {
-                // handleMessage(sender_psid, webhook_event.message);
-                databaseTest();
+                handleMessage(sender_psid, webhook_event.message);
             } else {
                 handlePostback(sender_psid, webhook_event.postback);
             }
@@ -54,7 +53,6 @@ app.post('/webhook', (req, res) => {
         // Returns '404 Not Found' if event is not from a subscription
         res.sendStatus(404);
     }
-
 });
 
 // GET request
@@ -85,14 +83,23 @@ app.get('/webhook', (req, res) => {
     }
 });
 
-// test the database
-function databaseTest() {
+// adds a reminder to user stash
+function stash(sender_psid, reminder) {
     client.connect();
 
-    client.query('SELECT * FROM reminders;', (err, res) => {
+    client.query(`INSERT INTO reminders (id, item) VALUES (${sender_psid}, ${reminder};`, (err, res) => {
+        if (err) throw err;
+    });
+}
+
+// get a users reminders
+function getStash(sender_psid) {
+    client.connect();
+
+    client.query(`SELECT * FROM reminders WHERE id=${sender_psid};`, (err, res) => {
         if (err) throw err;
         for (let row of res.rows) {
-            console.log(JSON.stringify(row));
+            console.log(row);
         }
         client.end()
     });
