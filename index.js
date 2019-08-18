@@ -41,7 +41,7 @@ app.post('/webhook', (req, res) => {
             // Check if the event is message or postback, use appropriate
             // handler
             if (webhook_event.message) {
-                handleMessage(sender_psid, webhook_event.message);
+                // handleMessage(sender_psid, webhook_event.message);
                 databaseTest();
             } else {
                 handlePostback(sender_psid, webhook_event.postback);
@@ -89,7 +89,7 @@ app.get('/webhook', (req, res) => {
 function databaseTest() {
     client.connect();
 
-    client.query('SELECT table_schema, table_name FROM information_schema.tables;', (err, res) => {
+    client.query('SELECT * FROM reminders;', (err, res) => {
         if (err) throw err;
         for (let row of res.rows) {
             console.log(JSON.stringify(row));
